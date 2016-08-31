@@ -21,8 +21,12 @@ void clear_all(const char *event, const char *payload, char **result);
 struct subscription {
 	const char *event;
 	void (*handler) (const char *event, const char *payload, char **result);
+	/*the last input result is used to response to the client device,
+	 * currently it isn't functional.*/
 };
 
+/*To add new functionality and run-time query, just updating this list and filling the
+ * related function is adequate*/
 struct subscription *cli_subscriptions[] = {
 	&(struct subscription) { "cli-push-event", push_event },
 	&(struct subscription) { "cli-dump-all", dump_all },

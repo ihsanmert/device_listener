@@ -1,6 +1,7 @@
 /*
  * test.c
- *
+ * It aims at performing cli to the daemon at run-time
+ * It also simulates pushing messages.
  *  Created on: Aug 31, 2016
  *      Author: ihsanmert
  */
