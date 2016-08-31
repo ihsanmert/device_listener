@@ -1,7 +1,12 @@
 /*
- * client_api.h
+ * device_api.h
  *
- *  Created on: Jan 15, 2016
+ * API to communicate with the daemon
+ * It can be updated with new functions
+ * with respect to the possible new
+ * requirements.
+ *
+ *  Created on: Aug 31, 2016
  *      Author: ihsanmert
  */
 

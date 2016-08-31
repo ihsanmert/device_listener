@@ -1,7 +1,7 @@
 /*
  * device_api.c
  *
- *  Created on: Jan 15, 2016
+ *  Created on: Aug 31, 2016
  *      Author: ihsanmert
  */
 #include <string.h>
