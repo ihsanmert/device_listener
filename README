@@ -1,0 +1,68 @@
+Introduction
+------------------------------------------------------
+It's a kind of broker (messaging server) to collect messages among devices
+and to count number of messages received from a specific device or all devices.
+
+Building on Unix with git and gcc
+------------------------------------------------------
+Prerequisites:
+	gcc, clang, or another C compiler
+	libtool
+	libjson(*)
+
+To download&build&install json-c: (*)
+	$ git clone https://github.com/json-c/json-c.git
+	$ cd json-c
+	$ sh autogen.sh
+	$ ./configure
+	$ make
+	$ make install
+	$ make check
+(Just a kind reminder:
+	$ export LD_LIBRARY_PATH=/usr/local/lib/
+)
+
+To build our implemented message_collector_daemon:
+	$ git clone git@github.com:ihsanmert/device_listener.git
+	$ cd device_listener/src/
+	$ make all
+
+To run message_collector_daemon & test 
+(Sample flow is the following:)
+------------------------------------------------------
+$ ./message_collector_daemon &
+[1] 6502         
+$ ./client-test --command push-event --payload '{"device_name":"dev1", "message":"message bla bla to bla bla" }'
+$ ./client-test --command push-event --payload '{"device_name":"dev1", "message":"message bla bla to bla bla" }'
+$ ./client-test --command push-event --payload '{"device_name":"dev1", "message":"message bla bla to bla bla" }'
+$ ./client-test --command push-event --payload '{"device_name":"dev2", "message":"message" }'$ ./client-test --command push-event --payload '{"device_name":"dev1", "message":"message bla bla to bla bla" }'
+$ ./client-test --command push-event --payload '{"device_name":"dev4", "message":"b_message" }'$ ./client-test --command push-event --payload '{"device_name":"a_dev", "message":"b_message" }'
+$ ./client-test --command push-event --payload '{"device_name":"a_dev", "message":"b_mess" }'
+$ ./client-test --command push-event --payload '{"device_name":"dev", "message":"b_mess" }'
+$ ./client-test --command dump-all
+number of all devices: [5]
+
+device_name: a_dev, msg_count: 2, byte_count: 15
+device_name: dev4, msg_count: 1, byte_count: 9
+device_name: dev, msg_count: 1, byte_count: 6
+device_name: dev1, msg_count: 4, byte_count: 104
+device_name: dev2, msg_count: 1, byte_count: 7
+
+# total msg.s = 9
+# total bytes = 141
+$ ./client-test --command dump-of --payload '{"device_name":"dev1"}'
+device_name: dev1, msg_count: 4, byte_count: 104
+$ ./client-test --command clear-all
+number of all devices to clear: [5]
+
+Cleared all devices information and their counters
+$ ./client-test --command push-event --payload '{"device_name":"dev11", "message":"111122334455" }'
+$ ./client-test --command dump-all
+number of all devices: [1]
+
+device_name: dev11, msg_count: 1, byte_count: 12
+
+# total msg.s = 1
+# total bytes = 12
+
+
