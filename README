@@ -8,6 +8,7 @@ Building on Unix with git and gcc
 Prerequisites:
 	gcc, clang, or another C compiler
 	libtool
+	pkgconfig
 	libjson(*)
 
 To download&build&install json-c: (*)
