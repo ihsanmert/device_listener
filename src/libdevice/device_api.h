@@ -19,6 +19,6 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-extern int push_message(char* server_ip, int port, const char* log_bulk_data);
+extern int push_message(char* server_ip, int port, const char* device_name, const char* message);
 
 

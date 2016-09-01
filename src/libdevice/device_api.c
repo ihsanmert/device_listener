@@ -25,13 +25,13 @@
 const char *prefix = "cli-";
 const char *seperator = ":";
 
-int push_message(char* server_ip, int port, const char* log_bulk_data)
+int push_message(char* server_ip, int port, const char* device_name, const char* message)
 {
 	char *payload;
 	int rv;
 	int str_bulk_len;
 
-	str_bulk_len = strlen(log_bulk_data);
+	str_bulk_len = strlen(message) + strlen(device_name);
 
 	payload = malloc( str_bulk_len + MAX_PAYLOAD_FIX_PART );
 
@@ -40,7 +40,7 @@ int push_message(char* server_ip, int port, const char* log_bulk_data)
 		return -1;
 	}
 
-	snprintf(payload,str_bulk_len + MAX_PAYLOAD_FIX_PART ,"'{\"data\":\"%s\"}'",log_bulk_data);
+	snprintf(payload,str_bulk_len + MAX_PAYLOAD_FIX_PART ,"'{\"device_name\":\"%s\",\"message\":\"%s\" }'",device_name, message);
 
 	rv = complete_send(server_ip, port, CMD_PUSH_EVT,payload);
 	free(payload);

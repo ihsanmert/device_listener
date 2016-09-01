@@ -24,7 +24,7 @@ To download&build&install json-c: (*)
 )
 
 To build our implemented message_collector_daemon:
-	$ git clone git@github.com:ihsanmert/device_listener.git
+	$ git clone https://github.com/ihsanmert/device_listener
 	$ cd device_listener/src/
 	$ make all
 
